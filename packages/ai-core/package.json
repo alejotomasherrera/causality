@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -29,8 +29,9 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@causality/code-tracing-core": "file:../code-tracing-core",
     "@causality/historical-core": "file:../historical-core",
-    "@causality/code-tracing-core": "file:../code-tracing-core"
+    "@google/generative-ai": "^0.24.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
