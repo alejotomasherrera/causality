@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build All Packages
+        run: ./scripts/build-all.sh
+
+      - name: Run Tests (All Packages)
+        run: |
+          # Loop through packages and run tests if present
+          PACKAGES=("sdk-core" "collector-core" "storage-core" "metrics-core" "behavior-core" "impact-core" "code-tracing-core" "historical-core" "ai-core" "predictive-core")
+
+          for pkg in "${PACKAGES[@]}"; do
+            echo "Testing $pkg..."
+            cd packages/$pkg
+            if grep -q '"test":' package.json; then
+               npm test
+            else
+               echo "No tests for $pkg"
+            fi
+            cd ../..
+          done
