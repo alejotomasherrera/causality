@@ -1,0 +1,1 @@
+{"version":3,"file":"recommendation-engine.d.ts","sourceRoot":"","sources":["../src/recommendation-engine.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAEH,OAAO,KAAK,EAAE,YAAY,EAAE,YAAY,EAAE,MAAM,YAAY,CAAC;AAE7D,wBAAgB,sBAAsB,CAClC,QAAQ,EAAE,YAAY,EACtB,QAAQ,EAAE,YAAY,EACtB,KAAK,EAAE,MAAM,EACb,UAAU,EAAE,MAAM,GACnB,MAAM,CAoBR"}

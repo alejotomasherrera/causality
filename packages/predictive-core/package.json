@@ -1,0 +1,43 @@
+{
+  "name": "@causality/predictive-core",
+  "version": "0.1.0",
+  "description": "Predictive analysis and auto-learning for Causality",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "causality",
+    "predictive",
+    "analysis",
+    "forecasting"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@causality/historical-core": "file:../historical-core",
+    "@causality/code-tracing-core": "file:../code-tracing-core",
+    "@causality/behavior-core": "file:../behavior-core",
+    "@causality/impact-core": "file:../impact-core"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
+  }
+}
