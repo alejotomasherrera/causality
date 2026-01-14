@@ -2,88 +2,96 @@
 
 Causality is a framework for capturing, reconstructing, and explaining the causal execution of distributed systems — from user intent to system behavior.
 
-## Status
+## Status: ✅ Project Completed (Phases 1-10)
 
-**Phase 6** — Behavior Analysis Core (in development)
+The Causality Framework is fully implemented, featuring 10 core packages that provide an end-to-end pipeline for observability, resilience, and predictive analysis.
 
-## Packages
+## Core Packages
 
-| Package                                                          | Description                                            | Status      |
-| ---------------------------------------------------------------- | ------------------------------------------------------ | ----------- |
-| [@causality/sdk-core](packages/sdk-core)                         | Core SDK for declaring Actions and propagating context | ✅ Phase 1  |
-| [@causality/collector-core](packages/collector-core)             | Event buffering, trace reconstruction, and transport   | ✅ Phase 2  |
-| [@causality/storage-core](packages/storage-core)                 | Trace persistence, indexing, and queries               | ✅ Phase 3A |
-| [@causality/metrics-core](packages/metrics-core)                 | Metrics correlation and degradation detection          | ✅ Phase 3B |
-| [@causality/reproducibility-core](packages/reproducibility-core) | Reproducibility explanation engine                     | ✅ Phase 4A |
-| [@causality/impact-core](packages/impact-core)                   | Impact scoring and notification policy                 | ✅ Phase 5  |
-| [@causality/behavior-core](packages/behavior-core)               | Behavioral consistency analysis                        | ✅ Phase 6  |
-| [@causality/code-tracing-core](packages/code-tracing-core)       | Code analysis and cross-service propagation            | ✅ Phase 7  |
-| [@causality/historical-core](packages/historical-core)           | Historical aggregation & trend analysis                | ✅ Phase 8  |
-| [@causality/ai-core](packages/ai-core)                           | AI-driven insights & pattern recognition               | ✅ Phase 9  |
-| [@causality/predictive-core](packages/predictive-core)           | Predictive analysis & auto-learning                    | ✅ Phase 10 |
+| Package                                                              | Description                                            | Phase       |
+| :------------------------------------------------------------------- | :----------------------------------------------------- | :---------- |
+| **[@causality/sdk-core](packages/sdk-core)**                         | Core SDK for declaring Actions and propagating context | ✅ Phase 1  |
+| **[@causality/collector-core](packages/collector-core)**             | Event buffering, trace reconstruction, and transport   | ✅ Phase 2  |
+| **[@causality/storage-core](packages/storage-core)**                 | Trace persistence, indexing, and queries               | ✅ Phase 3A |
+| **[@causality/metrics-core](packages/metrics-core)**                 | Metrics correlation and degradation detection          | ✅ Phase 3B |
+| **[@causality/reproducibility-core](packages/reproducibility-core)** | Reproducibility explanation engine (Markdown)          | ✅ Phase 4A |
+| **[@causality/impact-core](packages/impact-core)**                   | Impact scoring and notification policy                 | ✅ Phase 5  |
+| **[@causality/behavior-core](packages/behavior-core)**               | Behavioral consistency analysis & anomaly detection    | ✅ Phase 6  |
+| **[@causality/code-tracing-core](packages/code-tracing-core)**       | Code analysis and cross-service propagation            | ✅ Phase 7  |
+| **[@causality/historical-core](packages/historical-core)**           | Historical aggregation & trend analysis                | ✅ Phase 8  |
+| **[@causality/ai-core](packages/ai-core)**                           | AI-driven insights & pattern recognition               | ✅ Phase 9  |
+| **[@causality/predictive-core](packages/predictive-core)**           | Predictive analysis & auto-learning                    | ✅ Phase 10 |
 
-## Quick Start
+## Getting Started
+
+### 1. Build the Framework using Scripts
+
+We provide scripts to easily build all packages in the correct order.
+
+```bash
+# Build all packages locally
+./scripts/build-all.sh
+```
+
+### 2. Run the Full Integration Example
+
+To see the entire framework in action (simulating a microservice with degradation and AI predictions):
+
+```bash
+# Verify the build first
+./scripts/build-all.sh
+
+# Install and run the example
+cd examples/full-flow-integration
+npm install
+npm start
+```
+
+_See `examples/full-flow-integration/README.md` for more details._
+
+### 3. Use in Your External Project
+
+To install the Causality SDK into your own Node.js application:
+
+1.  **Generate Packages:**
+
+    ```bash
+    ./scripts/pack-all.sh
+    ```
+
+    This creates `.tgz` files in the `release/` directory.
+
+2.  **Install & Integrate:**
+    Follow the detailed guide at **[docs/EXTERNAL_INTEGRATION.md](docs/EXTERNAL_INTEGRATION.md)**.
+
+## Quick Code Example
 
 ```typescript
 import { runAction, onActionEvent } from "@causality/sdk-core";
 import { createCollector } from "@causality/collector-core";
-import { InMemoryStorage } from "@causality/storage-core";
-import { MetricsCollector } from "@causality/metrics-core";
-import { buildExplanation } from "@causality/reproducibility-core";
+import { PipelineTransport } from "./pipeline"; // Your custom transport
 
-// Setup
-const storage = new InMemoryStorage();
-const metricsCollector = new MetricsCollector();
-
+// 1. Initialize Collector
 const collector = createCollector({
-  transport: { send: async (trace) => storage.save(trace) },
+  transport: new PipelineTransport(/* wired cores */),
 });
 
-onActionEvent((event) => {
-  collector.ingest(event);
-  metricsCollector.ingest(event);
+// 2. Hook Events
+onActionEvent((event) => collector.ingest(event));
+
+// 3. Instrument Logic
+await runAction("ProcessOrder", async () => {
+  await runAction("ValidateUser", async () => {
+    // ... business logic
+  });
 });
-
-// Run actions
-await runAction("ProcessPayment", async () => {
-  /* ... */
-});
-await collector.flush();
-
-// Get trace and build reproducibility explanation
-const trace = await storage.get("trace-id");
-const metrics = metricsCollector.getMetricsByTrace("trace-id");
-const findings = metricsCollector.getFindings();
-
-const explanation = buildExplanation({ trace, metrics, findings });
-
-console.log(explanation.summary);
-// "Silent degradation in: 'ProcessPayment'. Peak duration: 800ms."
-
-console.log(explanation.replayInstructions);
-// Step-by-step instructions to reproduce the issue
 ```
 
 ## Documentation
 
-- [Foundations](docs/FOUNDATIONS.md) — Core principles and glossary
+- [Foundations](docs/FOUNDATIONS.md) — Core principles
 - [Event Schema](docs/EVENT-SCHEMA.md) — Formal event contract
-- [SDK Core README](packages/sdk-core/README.md) — SDK API reference
-- [Collector Core README](packages/collector-core/README.md) — Collector API reference
-- [Storage Core README](packages/storage-core/README.md) — Storage & Query API reference
-- [Metrics Core README](packages/metrics-core/README.md) — Metrics Correlation API reference
-- [Reproducibility Core README](packages/reproducibility-core/README.md) — Reproducibility Explanation API
-- [Impact Core README](packages/impact-core/README.md) — Impact Scoring & Notification Policy
-- [Behavior Core README](packages/behavior-core/README.md) — Behavioral Consistency Analysis
-- [Code Tracing Core README](packages/code-tracing-core/README.md) — Code Analysis & Service Propagation
-- [Historical Core README](packages/historical-core/README.md) — Historical & Trend Analysis
-- [AI Core README](packages/ai-core/README.md) — AI Insights
-- [Predictive Core README](packages/predictive-core/README.md) — Predictive Analysis
-
-## Examples
-
-- [Basic Usage](examples/basic-usage) — Simple SDK usage
-- [Collector Integration](examples/collector-integration) — SDK + Collector end-to-end
+- **[External Integration Guide](docs/EXTERNAL_INTEGRATION.md)** — How to use this SDK externally
 
 ## License
 

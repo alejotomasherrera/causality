@@ -1,0 +1,28 @@
+{
+  "name": "full-flow-integration",
+  "version": "1.0.0",
+  "description": "End-to-end integration example for Causality Framework",
+  "type": "module",
+  "scripts": {
+    "start": "npm run build && node dist/main.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@causality/sdk-core": "file:../../packages/sdk-core",
+    "@causality/collector-core": "file:../../packages/collector-core",
+    "@causality/storage-core": "file:../../packages/storage-core",
+    "@causality/metrics-core": "file:../../packages/metrics-core",
+    "@causality/behavior-core": "file:../../packages/behavior-core",
+    "@causality/code-tracing-core": "file:../../packages/code-tracing-core",
+    "@causality/reproducibility-core": "file:../../packages/reproducibility-core",
+    "@causality/impact-core": "file:../../packages/impact-core",
+    "@causality/historical-core": "file:../../packages/historical-core",
+    "@causality/ai-core": "file:../../packages/ai-core",
+    "@causality/predictive-core": "file:../../packages/predictive-core"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.0"
+  }
+}
