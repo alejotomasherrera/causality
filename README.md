@@ -1,5 +1,10 @@
 # Causality
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+![Language](https://img.shields.io/badge/language-TypeScript-3178C6.svg?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg?style=flat-square)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
+
 Causality is a framework for capturing, reconstructing, and explaining the causal execution of distributed systems — from user intent to system behavior.
 
 ## Status: ✅ Project Completed (Phases 1-10)
