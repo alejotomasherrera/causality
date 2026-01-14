@@ -93,6 +93,17 @@ await runAction("ProcessOrder", async () => {
 - [Event Schema](docs/EVENT-SCHEMA.md) — Formal event contract
 - **[External Integration Guide](docs/EXTERNAL_INTEGRATION.md)** — How to use this SDK externally
 
+## Contributing
+
+We welcome contributions! this is an open source project.
+
+1.  **Fork** the repository.
+2.  **Clone** your fork: `git clone https://github.com/your-username/causality.git`
+3.  **Create a branch** for your feature: `git checkout -b feature/amazing-feature`
+4.  **Commit** your changes: `git commit -m 'feat: add amazing feature'`
+5.  **Push** to your branch: `git push origin feature/amazing-feature`
+6.  **Open a Pull Request**.
+
 ## License
 
 MIT
