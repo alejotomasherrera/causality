@@ -10,7 +10,7 @@ export default {
     '^.+\\.tsx?$': [
       'ts-jest',
       {
-        useESM: true,
+        useESM: true, isolatedModules: true,
       },
     ],
   },

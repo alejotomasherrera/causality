@@ -34,6 +34,7 @@ jobs:
             echo "Testing $pkg..."
             cd packages/$pkg
             if grep -q '"test":' package.json; then
+               npm install # Ensure devDependencies (like jest) are present
                npm test
             else
                echo "No tests for $pkg"
