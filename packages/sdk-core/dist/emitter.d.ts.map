@@ -1,1 +1,0 @@
-{"version":3,"file":"emitter.d.ts","sourceRoot":"","sources":["../src/emitter.ts"],"names":[],"mappings":"AAAA;;;;;;;;;GASG;AAEH,OAAO,KAAK,EAAE,WAAW,EAAE,mBAAmB,EAAE,MAAM,YAAY,CAAC;AAOnE;;;;;;;;;;;;;GAaG;AACH,wBAAgB,aAAa,CAAC,QAAQ,EAAE,mBAAmB,GAAG,MAAM,IAAI,CAKvE;AAED;;;;;;;GAOG;AACH,wBAAgB,eAAe,CAAC,KAAK,EAAE,WAAW,GAAG,IAAI,CASxD;AAED;;;GAGG;AACH,wBAAgB,yBAAyB,IAAI,IAAI,CAEhD"}

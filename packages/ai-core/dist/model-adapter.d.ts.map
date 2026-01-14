@@ -1,1 +1,0 @@
-{"version":3,"file":"model-adapter.d.ts","sourceRoot":"","sources":["../src/model-adapter.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAEH,OAAO,KAAK,EAAE,QAAQ,EAAE,YAAY,EAAE,MAAM,YAAY,CAAC;AAEzD;;GAEG;AACH,wBAAgB,kBAAkB,CAAC,MAAM,EAAE,QAAQ,GAAG,YAAY,CAQjE;AAED;;GAEG;AACH,qBAAa,gBAAiB,YAAW,YAAY;IAC3C,QAAQ,CAAC,MAAM,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,CAAC;CA0BlD"}

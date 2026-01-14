@@ -1,1 +1,0 @@
-{"version":3,"file":"pattern-matcher.d.ts","sourceRoot":"","sources":["../src/pattern-matcher.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAEH,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,4BAA4B,CAAC;AAEvE,MAAM,WAAW,OAAO;IACpB,IAAI,EAAE,OAAO,GAAG,YAAY,CAAC;IAC7B,KAAK,EAAE,MAAM,CAAC;IACd,WAAW,EAAE,MAAM,CAAC;CACvB;AAED;;GAEG;AACH,wBAAgB,aAAa,CAAC,IAAI,EAAE,oBAAoB,GAAG,OAAO,EAAE,CA+BnE"}
