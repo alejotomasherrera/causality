@@ -4,6 +4,7 @@
  * Abstract interface and implementations for AI models.
  */
 
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import type { AIConfig, ModelAdapter } from './types.js';
 
 /**
@@ -13,7 +14,8 @@ export function createModelAdapter(config: AIConfig): ModelAdapter {
     switch (config.provider) {
         case 'mock':
             return new MockModelAdapter();
-        // Future: Add 'openai', 'gemini', 'ollama'
+        case 'gemini':
+            return new GeminiModelAdapter(config);
         default:
             throw new Error(`Unsupported AI provider: ${config.provider}`);
     }
@@ -24,7 +26,6 @@ export function createModelAdapter(config: AIConfig): ModelAdapter {
  */
 export class MockModelAdapter implements ModelAdapter {
     async generate(prompt: string): Promise<string> {
-        // Return a canned JSON response simulating an analysis
         return JSON.stringify({
             summary: "Analysis based on historical data indicates degrading performance in payment-service.",
             insights: [
@@ -36,17 +37,36 @@ export class MockModelAdapter implements ModelAdapter {
                     category: "performance",
                     suggestion: "Investigate recent changes in database queries or external API calls.",
                     relatedItems: [{ service: "payment-service", function: "processPayment" }]
-                },
-                {
-                    id: "insight-2",
-                    title: "Silent Degradation in UserProfile",
-                    description: "Memory usage is increasing despite successful executions.",
-                    severity: "medium",
-                    category: "reliability",
-                    suggestion: "Check for memory leaks in the profile caching mechanism.",
-                    relatedItems: [{ service: "user-service", function: "getUserProfile" }]
                 }
             ]
         }, null, 2);
+    }
+}
+
+/**
+ * Gemini Model Adapter.
+ */
+export class GeminiModelAdapter implements ModelAdapter {
+    private genAI: GoogleGenerativeAI;
+    private modelName: string;
+
+    constructor(config: AIConfig) {
+        if (!config.apiKey) {
+            throw new Error('API Key is required for Gemini provider');
+        }
+        this.genAI = new GoogleGenerativeAI(config.apiKey);
+        this.modelName = config.model || 'gemini-pro';
+    }
+
+    async generate(prompt: string): Promise<string> {
+        try {
+            const model = this.genAI.getGenerativeModel({ model: this.modelName });
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            return response.text();
+        } catch (error) {
+            console.error('Gemini Generation Error:', error);
+            throw error;
+        }
     }
 }
