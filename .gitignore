@@ -31,3 +31,6 @@ pnpm-debug.log*
 .idea
 *.swp
 *.swo
+
+# Artifacts
+release/
